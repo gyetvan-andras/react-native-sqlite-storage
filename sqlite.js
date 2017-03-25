@@ -52,7 +52,7 @@ function createPromiseRuntime() {
   config.forEach(entry => {
     let [returnValueExpected,prototype,fn,argsNeedPadding,reverseCallbacks,rejectOnError]= entry;
     let originalFn = plugin[prototype].prototype[fn];
-    plugin[prototype].prototype[fn] = function(...args){
+    plugin[prototype].prototype['p_'+fn] = function(...args){
       if (argsNeedPadding && args.length == 1){
         args.push([]);
       }
@@ -82,4 +82,4 @@ function createPromiseRuntime() {
 }
 SQLiteFactory.prototype.enablePromise = enablePromiseRuntime;
 
-module.exports = new SQLiteFactory();
+export default SQLiteFactory
